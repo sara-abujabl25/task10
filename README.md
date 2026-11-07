@@ -53,15 +53,15 @@ The application follows this data flow:
 
 ### 1. Home Page
 
-<img src="screenshots/home_page.png" width="250" alt="Task Manager Home Page">
+<img src="screenshots/home.png" width="250" alt="Task Manager Home Page">
 
 ### 2. Daily Inspiration (Explore)
 
-<img src="screenshots/explore_page.png" width="250" alt="Daily Inspiration Page">
+<img src="screenshots/explore.png" width="250" alt="Daily Inspiration Page">
 
 ### 3. Loading State
 
-<img src="screenshots/loading_state.png" width="250" alt="Loading State">
+<img src="screenshots/loading.png" width="250" alt="Loading State">
 
 ## Learning Outcomes
 
