@@ -28,19 +28,19 @@ Individuals who want a simple and organized way to manage their daily tasks and 
 ## Application Screenshots
 
 <p align="center">
-  <img src="screenshots/login.png" width="200">
+  <img src="screenshot/login.png" width="200">
   <br><br>
-  <img src="screenshots/register.png" width="200">
+  <img src="screenshot/register.png" width="200">
   <br><br>
-  <img src="screenshots/home.png" width="200">
+  <img src="screenshot/home.png" width="200">
   <br><br>
-  <img src="screenshots/explore.png" width="200">
+  <img src="screenshot/explore.png" width="200">
   <br><br>
-  <img src="screenshots/settings.png" width="200">
+  <img src="screenshot/settings.png" width="200">
   <br><br>
-  <img src="screenshots/supabase_database.png" width="200">
+  <img src="screenshot/supabase_database.png" width="200">
   <br><br>
-  <img src="screenshots/responsive_design.png" width="200">
+  <img src="screenshot/responsive_design.png" width="200">
 </p>
 
 ## Technologies Used
