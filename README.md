@@ -30,6 +30,8 @@ Individuals who want a simple and organized way to manage their daily tasks and 
 <p align="center">
   <img src="screenshote/login.png" width="200">
  <br><br>
+ <img src="screenshote/لقطة شاشة 2026-11-07 201530.png" width="200">
+ <br><br>
   <img src="screenshote/register.png" width="200">
  <br><br>
   <img src="screenshote/home.png" width="200">
