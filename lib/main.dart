@@ -1,20 +1,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'screens/home_page.dart';
 import 'screens/settings_page.dart';
 import 'screens/explore_tasks_page.dart';
+import 'screens/login_page.dart';
 
 import 'cubit/task_cubit.dart';
 import 'cubit/online_task_cubit.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: "https://dllnzseaqspxsudbomno.supabase.co",
+    publishableKey: "sb_publishable_Hr9HixE9y8_m5nvyBl46lw_y3d8NvYi",
+  );
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => TaskCubit()..loadTasks(),
+          create: (context) => TaskCubit(),
         ),
         BlocProvider(
           create: (context) => OnlineTaskCubit()..fetchTasks(),
@@ -45,7 +54,28 @@ class MyApp extends StatelessWidget {
           centerTitle: false,
         ),
       ),
-      home: const MainPage(),
+      home: const AuthGate(),
+    );
+  }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<AuthState>(
+      stream: Supabase.instance.client.auth.onAuthStateChange,
+      builder: (context, snapshot) {
+        final session =
+            Supabase.instance.client.auth.currentSession;
+
+        if (session != null) {
+          return const MainPage();
+        }
+
+        return const LoginPage();
+      },
     );
   }
 }
@@ -59,6 +89,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<TaskCubit>().loadTasks();
+  }
 
   final List<Widget> pages = const [
     HomePage(),

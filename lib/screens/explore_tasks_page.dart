@@ -153,9 +153,7 @@ class _ExploreTasksPageState extends State<ExploreTasksPage> {
 
                 if (state.isFromCache)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                    ),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -204,7 +202,6 @@ class _ExploreTasksPageState extends State<ExploreTasksPage> {
                   ),
                 ),
 
-                // Page indicator
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -226,7 +223,6 @@ class _ExploreTasksPageState extends State<ExploreTasksPage> {
 
                 const SizedBox(height: 12),
 
-                // Navigation buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -327,7 +323,7 @@ class _ExploreTasksPageState extends State<ExploreTasksPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: colors[colorIndex].withOpacity(0.35),
+            color: colors[colorIndex].withValues(alpha: 0.1),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
@@ -351,7 +347,7 @@ class _ExploreTasksPageState extends State<ExploreTasksPage> {
               fontSize: 10,
               letterSpacing: 2,
               fontWeight: FontWeight.bold,
-              color: textColors[colorIndex].withOpacity(0.75),
+              color: textColors[colorIndex].withValues(alpha: 0.8),
             ),
           ),
 

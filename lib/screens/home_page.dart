@@ -363,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                     boxShadow: [
                       BoxShadow(
                         color: const Color(0xFF344B39)
-                            .withOpacity(0.04),
+                           .withValues(alpha: 0.04),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),

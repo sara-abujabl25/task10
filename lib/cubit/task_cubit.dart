@@ -1,15 +1,13 @@
 
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'task_state.dart';
+import '../services/task_service.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
 
-  final SharedPreferencesAsync _prefs = SharedPreferencesAsync();
+  final TaskService _taskService = TaskService();
 
   List<Map<String, dynamic>> tasks = [];
 
@@ -17,18 +15,11 @@ class TaskCubit extends Cubit<TaskState> {
     emit(TaskLoading());
 
     try {
-      final savedTasks = await _prefs.getString('tasks');
-
-      if (savedTasks != null) {
-        final List<dynamic> decodedTasks = jsonDecode(savedTasks);
-
-        tasks = decodedTasks
-            .map((task) => Map<String, dynamic>.from(task))
-            .toList();
-      }
+      tasks = await _taskService.getTasks();
 
       emit(TaskSuccess(List.from(tasks)));
     } catch (e) {
+      print('LOAD TASKS ERROR: $e');
       emit(TaskError('Failed to load tasks: $e'));
     }
   }
@@ -41,22 +32,19 @@ class TaskCubit extends Cubit<TaskState> {
     emit(TaskLoading());
 
     try {
-      final updatedTasks =
-          List<Map<String, dynamic>>.from(tasks);
+      await _taskService.addTask(
+        title: title,
+        description: description,
+        priority: priority,
+      );
 
-      updatedTasks.add({
-        'title': title,
-        'description': description,
-        'priority': priority,
-        'completed': false,
-      });
-
-      await _saveTasks(updatedTasks);
-
-      tasks = updatedTasks;
+      tasks = await _taskService.getTasks();
 
       emit(TaskSuccess(List.from(tasks)));
+
+      print('ADD TASK SUCCESS');
     } catch (e) {
+      print('ADD TASK ERROR: $e');
       emit(TaskError('Failed to add task: $e'));
     }
   }
@@ -65,19 +53,22 @@ class TaskCubit extends Cubit<TaskState> {
     emit(TaskLoading());
 
     try {
-      final updatedTasks = tasks
-          .map((task) => Map<String, dynamic>.from(task))
-          .toList();
+      final task = tasks[index];
 
-      updatedTasks[index]['completed'] =
-          !(updatedTasks[index]['completed'] == true);
+      final bool newCompleted = task['completed'] != true;
 
-      await _saveTasks(updatedTasks);
+      await _taskService.updateTask(
+        id: task['id'],
+        completed: newCompleted,
+      );
 
-      tasks = updatedTasks;
+      tasks = await _taskService.getTasks();
 
       emit(TaskSuccess(List.from(tasks)));
+
+      print('UPDATE TASK SUCCESS');
     } catch (e) {
+      print('UPDATE TASK ERROR: $e');
       emit(TaskError('Failed to update task: $e'));
     }
   }
@@ -86,28 +77,18 @@ class TaskCubit extends Cubit<TaskState> {
     emit(TaskLoading());
 
     try {
-      final updatedTasks = tasks
-          .map((task) => Map<String, dynamic>.from(task))
-          .toList();
+      final task = tasks[index];
 
-      updatedTasks.removeAt(index);
+      await _taskService.deleteTask(task['id']);
 
-      await _saveTasks(updatedTasks);
-
-      tasks = updatedTasks;
+      tasks = await _taskService.getTasks();
 
       emit(TaskSuccess(List.from(tasks)));
+
+      print('DELETE TASK SUCCESS');
     } catch (e) {
+      print('DELETE TASK ERROR: $e');
       emit(TaskError('Failed to delete task: $e'));
     }
-  }
-
-  Future<void> _saveTasks(
-    List<Map<String, dynamic>> tasksToSave,
-  ) async {
-    await _prefs.setString(
-      'tasks',
-      jsonEncode(tasksToSave),
-    );
   }
 }
