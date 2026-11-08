@@ -28,17 +28,17 @@ Individuals who want a simple and organized way to manage their daily tasks and 
 ## Application Screenshots
 
 <p align="center">
-  <img src="screenshot/login.png" width="200">
+  <img src="screenshote/login.png" width="200">
   <br><br>
-  <img src="screenshot/register.png" width="200">
+  <img src="screenshote/register.png" width="200">
   <br><br>
-  <img src="screenshot/home.png" width="200">
+  <img src="screenshote/home.png" width="200">
   <br><br>
-  <img src="screenshot/explore.png" width="200">
+  <img src="screenshote/explore.png" width="200">
   <br><br>
-  <img src="screenshot/settings.png" width="200">
+  <img src="screenshote/settings.png" width="200">
   <br><br>
-  <img src="screenshot/supabase_database.png" width="200">
+  <img src="screenshote/supabase_database.png" width="200">
   <br><br>
   <img src="screenshot/responsive_design.png" width="200">
 </p>
